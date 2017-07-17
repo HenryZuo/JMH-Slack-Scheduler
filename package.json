@@ -1,0 +1,23 @@
+{
+  "name": "jmh-slack-scheduler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenryZuo/JMH-Slack-Scheduler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HenryZuo/JMH-Slack-Scheduler/issues"
+  },
+  "homepage": "https://github.com/HenryZuo/JMH-Slack-Scheduler#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}

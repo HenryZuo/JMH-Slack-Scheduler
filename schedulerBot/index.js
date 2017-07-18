@@ -34,12 +34,12 @@ rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function() {
 });
 
 rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
-  // console.log('Message:', msg.text);
   var dm = rtm.dataStore.getDMByUserId(msg.user);
   if (!dm || dm.id !== msg.channel || msg.type !== 'message') {
     console.log('MESSAGE NOT SENT TO DM, IGNORING');
     return;
   };
+
   User.findOne({ slackId: msg.user })
   .then(function(user){
     if(! user ) {
@@ -50,6 +50,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
     }
     return user;
   })
+
   .then(function(user) {
     console.log("USER IS ", user);
     rtm.sendMessage('Your id is ' + user._id, msg.channel)
@@ -62,6 +63,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
       return;
     }
     return;
+  })
     axios.get("https://api.api.ai/api/query", {
       params: {
         v: 20150910,
@@ -75,7 +77,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
       },
     }).then(function(res){
       var data = res.data;
-      // console.log('data',data);
+      console.log('data',data);
       // console.log('THIS IS ACTIONINCOMPLETE', data.result.actionIncomplete);
       if(data.result.actionIncomplete){
         rtm.sendMessage(JSON.stringify(data.result.fulfillment.speech), msg.channel);
@@ -110,7 +112,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
       }
 
     })
-  })
+  // })
 })
 
 

@@ -115,7 +115,7 @@ app.get('/google/callback', function(req, res){
             rtm.sendMessage('You are connected to Google Calendar', MongoUser.slackDmId)
           })
           res.json({
-            code: rqe.query.code,
+            code: req.query.code,
             state: req.query.state,
             tokens,
             googleUser

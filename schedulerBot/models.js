@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connetct(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI);
 
 var User = mongoose.model('User', {
   slackId:{

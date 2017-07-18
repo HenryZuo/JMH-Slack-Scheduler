@@ -27,18 +27,14 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
   console.log(`Logged in as ${rtmStartData.self.name} of team ${rtmStartData.team.name}, but not yet connected to a channel`);
 });
 
-// Wait for the client to connect
 rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function() {
-  // Get the user's name
   var user = rtm.dataStore.getUserById(rtm.activeUserId);
-  // Get the team's name
   var team = rtm.dataStore.getTeamById(rtm.activeTeamId);
-  // Log the slack team name and the bot's name
   console.log('Connected to ' + team.name + ' as ' + user.name);
 });
 
 rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
-  console.log('Message:', msg.text);
+  // console.log('Message:', msg.text);
   var dm = rtm.dataStore.getDMByUserId(msg.user);
   if (!dm || dm.id !== msg.channel || msg.type !== 'message') {
     console.log('MESSAGE NOT SENT TO DM, IGNORING');
@@ -57,9 +53,12 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
   .then(function(user) {
     console.log("USER IS ", user);
     rtm.sendMessage('Your id is ' + user._id, msg.channel)
-    if(!user.google) {
-      rtm.sendMessage('Hello, please give permission to your Google Calendar.
-      Please Visit http://localhost:5000/connect?user=${user._id} to setup Google Calendar', msg.channel)
+    if(!user.google) { //not logged into Google Calendar
+      rtm.sendMessage(`
+        "Hello, this is your friendly slackbot. Please give me permission to your Google Calendar so that I can schedule the event for you.
+        Please Visit http://localhost:5000/connect?user=${user._id}
+        to setup Google Calendar"`, msg.channel
+      )
       return;
     }
     return;
@@ -76,8 +75,8 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
       },
     }).then(function(res){
       var data = res.data;
-      console.log('data',data);
-      console.log('THIS IS ACTIONINCOMPLETE', data.result.actionIncomplete);
+      // console.log('data',data);
+      // console.log('THIS IS ACTIONINCOMPLETE', data.result.actionIncomplete);
       if(data.result.actionIncomplete){
         rtm.sendMessage(JSON.stringify(data.result.fulfillment.speech), msg.channel);
       } else {
@@ -112,8 +111,8 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
 
     })
   })
-
 })
+
 
 rtm.start();
 

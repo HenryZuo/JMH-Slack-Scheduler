@@ -56,3 +56,6 @@ typings/
 
 # dotenv environment variables file
 *.sh
+
+# Google Calendar API authorization
+client_secret.json

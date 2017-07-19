@@ -13,8 +13,8 @@ var rtm = new RtmClient(bot_token, {
 });
 
 var WebClient = require('@slack/client').WebClient;
-var token = process.env.SLACK_BOT_TOKEN || ''; //see section above on sensitive data
-var web = new WebClient(token);
+// var token = process.env.SLACK_BOT_TOKEN || ''; //see section above on sensitive data
+var web = new WebClient(bot_token);
 var { User } = require('./models')
 
 let channel;
@@ -52,8 +52,8 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
   })
 
   .then(function(user) {
-    console.log("USER IS ", user);
-    rtm.sendMessage('Your id is ' + user._id, msg.channel)
+    // console.log("USER IS ", user);
+    // rtm.sendMessage('Your id is ' + user._id, msg.channel)
     if(!user.google) { //not logged into Google Calendar
       rtm.sendMessage(`
         "Hello, this is your friendly slackbot. Please give me permission to your Google Calendar so that I can schedule the event for you.
@@ -77,9 +77,9 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
       },
     }).then(function(res){
       var data = res.data;
-      console.log('data',data);
+      // console.log('data',data);
       // console.log('THIS IS ACTIONINCOMPLETE', data.result.actionIncomplete);
-      if(data.result.actionIncomplete){
+      if(data.result.actionIncomplete && !user.google){
         rtm.sendMessage(JSON.stringify(data.result.fulfillment.speech), msg.channel);
       } else {
         web.chat.postMessage(msg.channel,
@@ -112,7 +112,6 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
       }
 
     })
-  // })
 })
 
 

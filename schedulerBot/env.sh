@@ -6,3 +6,6 @@ export CLIENT_ID='853833657314-ti6ncseh876meg6d3rni4s8ec925otjg.apps.googleuserc
 export CLIENT_SECRET='yRszs7C1fd9Sxro2HxOxPwFd';
 export REDIRECT_URL='http://localhost:5000/google/callback'
 export MONGODB_URI='mongodb://maggiechu26:asdf1234@ds141209.mlab.com:41209/slack-scheduler-google-calendar'
+export SLACK_CLIENT_ID='214025082196.213316781664';
+export SLACK_CLIENT_SECRET='fcd90e358761b028f423bd6afbf090d4';
+export SLACK_VERIFICATION_TOKEN_INTERACTIVE='vQZrfI3gcFFbKVlhony5owkd'

@@ -18,7 +18,6 @@ var { rtm } = require('./index');
 var IncomingWebhook = require('@slack/client').IncomingWebhook;
 var url = process.env.SLACK_WEBHOOK_URL || '';
 var webhook = new IncomingWebhook(url);
-
 webhook.send('Hello! How may I help you?', function(err, header, statusCode, body) {
   if (err) {
     console.log('Error:', err);
@@ -26,6 +25,20 @@ webhook.send('Hello! How may I help you?', function(err, header, statusCode, bod
     console.log('Received', statusCode, 'from Slack');
   }
 });
+
+// console.log('TODAY IS: ' ,new Date() )
+let today = new Date();
+let oneDayBeforeTask;
+var { Reminder } = require('./models')
+
+// function remindeDayBefore(slackUserId) {
+//   Reminder.findOne({slackId: slackUserId})
+//           .then(function(reminder){
+//             let today = new Date();
+//             let reminderData = reminder.date
+//             let oneDayBeforeTask =
+//           })
+// }
 
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
@@ -45,8 +58,7 @@ var urlshortener = google.urlshortener('v1');
 var plus = google.plus('v1');
 var OAuth2 = google.auth.OAuth2;
 var { User } = require('./models');
-var { Reminder } = require('./models')
-
+=
 // var calendar = google.calendar('v3');
 app.post('/slack/interactive', function(req, res) { //make request to Google Calendar API
   var payload = JSON.parse(req.body.payload);

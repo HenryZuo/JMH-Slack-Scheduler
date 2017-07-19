@@ -86,7 +86,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
       console.log(data.result.parameters.date) //date
       var slackUserId = new User({_id: slackUser.id});
       var reminders = new Reminder({
-        userId: slackUserId._id, 
+        userId: slackUserId._id,
         date: data.result.parameters.date,
         task:data.result.parameters.action
       });

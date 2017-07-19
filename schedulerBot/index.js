@@ -61,7 +61,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
     if(!user.google) { //not logged into Google Calendar
       rtm.sendMessage(`
         "Hello, this is your friendly slackbot. Please give me permission to your Google Calendar so that I can schedule the event for you.
-        Please Visit http://localhost:5000/connect?user=${user._id}
+        Please Visit https://slackbot-scheduler.herokuapp.com/connect?user=${user._id}
         to setup Google Calendar"`, msg.channel
       )
       return;

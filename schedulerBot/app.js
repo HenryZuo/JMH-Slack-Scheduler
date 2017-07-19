@@ -45,7 +45,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 app.get('/', function(req, res){
-  res.render("HI");
+  res.send("HI");
 })
 
 const GOOGLE_SCOPES = [
@@ -58,7 +58,7 @@ var urlshortener = google.urlshortener('v1');
 var plus = google.plus('v1');
 var OAuth2 = google.auth.OAuth2;
 var { User } = require('./models');
-=
+
 // var calendar = google.calendar('v3');
 app.post('/slack/interactive', function(req, res) { //make request to Google Calendar API
   var payload = JSON.parse(req.body.payload);
@@ -115,7 +115,7 @@ function getGoogleAuth() {
   return new OAuth2(
     Google_Client_Id,
     Google_Client_Secret,
-    'http://localhost:5000/google/callback' //send users back to this url
+    'https://slackbot-scheduler.herokuapp.com/google/callback' //send users back to this url
     // Url_Redirect/google/callback
   );
 }

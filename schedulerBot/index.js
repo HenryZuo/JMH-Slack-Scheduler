@@ -16,7 +16,7 @@ var WebClient = require('@slack/client').WebClient;
 // var token = process.env.SLACK_BOT_TOKEN || ''; //see section above on sensitive data
 var web = new WebClient(bot_token);
 var { User } = require('./models')
-
+var { Reminder } = require('./models')
 let channel;
 
 // The client will emit an RTM.AUTHENTICATED event on successful connection, with the `rtm.start` payload
@@ -39,6 +39,10 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
     console.log('MESSAGE NOT SENT TO DM, IGNORING');
     return;
   };
+
+  var slackUser = rtm.dataStore.getUserById(msg.user);
+  console.log("SLACK USER ID", slackUser.id);
+  console.log("SLACK USER EMAIL", slackUser.profile.email);
 
   User.findOne({ slackId: msg.user })
   .then(function(user){
@@ -77,8 +81,23 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
       },
     }).then(function(res){
       var data = res.data;
-      // console.log('data',data);
-      // console.log('THIS IS ACTIONINCOMPLETE', data.result.actionIncomplete);
+      console.log(data.id) // user id
+      console.log(data.result.parameters.action) //action
+      console.log(data.result.parameters.date) //date
+      var slackUserId = new User({_id: slackUser.id});
+      var reminders = new Reminder({
+        userId: slackUserId._id, 
+        date: data.result.parameters.date,
+        task:data.result.parameters.action
+      });
+      reminders.save(function(err){
+        if(err){
+          console.log('ERROR HERE', err);
+        } else {
+          console.log("Successfully saved reminders", reminders)
+        }
+      })
+
       if(data.result.actionIncomplete && !user.google){
         rtm.sendMessage(JSON.stringify(data.result.fulfillment.speech), msg.channel);
       } else {

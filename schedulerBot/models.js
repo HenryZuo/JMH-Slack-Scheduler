@@ -17,7 +17,7 @@ var User = mongoose.model('User', {
 });
 
 var Reminder = mongoose.model('Reminder', {
-  user: {
+  userId: {
     type: mongoose.Schema.ObjectId,
     ref: "User"
   },
@@ -26,12 +26,9 @@ var Reminder = mongoose.model('Reminder', {
     type: String,
     required: true
   },
-  userId: {
-    type: String,
-    required: true
-  }
 })
 
 module.exports = {
-  User, Reminder
+  User,
+  Reminder
 };

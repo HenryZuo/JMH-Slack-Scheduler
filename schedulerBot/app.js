@@ -45,6 +45,7 @@ var urlshortener = google.urlshortener('v1');
 var plus = google.plus('v1');
 var OAuth2 = google.auth.OAuth2;
 var { User } = require('./models');
+var { Reminder } = require('./models')
 
 // var calendar = google.calendar('v3');
 app.post('/slack/interactive', function(req, res) { //make request to Google Calendar API

@@ -4,6 +4,7 @@
   "description": "scheduler bot for slack",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "googleapis": "^20.1.0",
     "moment": "^2.18.1",

@@ -8,6 +8,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const apiaiApp = apiai(APIAI_TOKEN);
 var axios = require('axios');
 var moment = require('moment');
+// var WebClient = require('@slack/client').WebClient;
+// var web = new WebClient(bot_token);
 
 const Google_Client_Id = process.env.CLIENT_ID;
 const Google_Client_Secret = process.env.CLIENT_SECRET;

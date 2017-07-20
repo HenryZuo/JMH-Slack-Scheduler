@@ -81,22 +81,47 @@ rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(msg) {
       },
     }).then(function(res){
       var data = res.data;
-      console.log(data.id) // user id
       console.log(data.result.parameters.action) //action
       console.log(data.result.parameters.date) //date
-      var slackUserId = new User({_id: slackUser.id});
+      // var slackUserId = new User({_id: slackUser.id});
+      let newSlackId = slackUser.id;
+      console.log("SLACK ID", newSlackId)
+      console.log('dataid', data.id)
       var reminders = new Reminder({
-        userId: slackUserId._id,
+        userId: data.id,
         date: data.result.parameters.date,
         task:data.result.parameters.action
-      });
+      })
       reminders.save(function(err){
-        if(err){
-          console.log('ERROR HERE', err);
-        } else {
-          console.log("Successfully saved reminders", reminders)
+        if(!err) {
+          Reminder.find({})
+          .populate('userId')
+          .exec(function(err, id){
+            console.log(id)
+          })
         }
       })
+      // reminders.save().then(() => console.log('saved', reminders))
+      //         .catch(e => console.log('Error', e));
+      // Reminder.findOne({})
+      //          .populate('userId')
+      //          .exec(function(err, id ){
+      //            if(err){ console.log (err) }
+      //            console.log(id);
+      //
+      //          })
+
+
+      // reminders.save(function(err){
+      //   if(err){
+      //     console.log('ERROR HERE', err);
+      //   } else {
+      //     console.log("Successfully saved reminders", reminders)
+      //   }
+      // })
+      // .catch(function(err){
+      //   console.log(err);
+      // })
 
       if(data.result.actionIncomplete && !user.google){
         rtm.sendMessage(JSON.stringify(data.result.fulfillment.speech), msg.channel);

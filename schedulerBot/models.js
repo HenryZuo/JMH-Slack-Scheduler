@@ -18,8 +18,8 @@ var User = mongoose.model('User', {
 
 var Reminder = mongoose.model('Reminder', {
   userId: {
-    type: mongoose.Schema.ObjectId,
-    ref: "User"
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
   date: Date,
   task: {

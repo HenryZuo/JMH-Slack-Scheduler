@@ -20,9 +20,12 @@
   "dependencies": {
     "@slack/client": "^3.10.0",
     "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "google-auth-library": "^0.10.0",
     "googleapis": "^20.1.0",
+    "mongoose": "^4.11.3",
+    "ngrok": "^2.2.15",
     "nodemon": "^1.11.0",
     "open": "0.0.5",
     "underscore": "^1.8.3"
